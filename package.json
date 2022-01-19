@@ -1,0 +1,23 @@
+{
+  "name": "jsonform",
+  "version": "1.0.0",
+  "main": "./src/index.js",
+  "user": "jsonform",
+  "repository": "https://github.com/fdsa-ltd/jsonform",
+  "description": "Client-side JavaScript library that generates HTML forms from structured data models expressed using a JSON schema, possibly completed by a form layout description.",
+  "keywords": [
+    "JSON",
+    "SCHEMA",
+    "HTML",
+    "FORM"
+  ],
+  "scripts": {
+    "build": "webpack"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "webpack": "^5.66.0",
+    "webpack-cli": "^4.9.1"
+  }
+}
