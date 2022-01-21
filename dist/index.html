@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-cn">
 
 <head>
   <meta charset="UTF-8">
@@ -8,7 +8,12 @@
 
 <style>
   * {
-    /* border: 0px; */
+    padding: 0px;
+    margin: 0px;
+  }
+
+  div {
+    border: 0px;
     padding: 0px;
     margin: 0px;
   }
@@ -33,183 +38,237 @@
       </svg>
     </span>
   </div>
+  <div style="width: 100%; height: 100%;">
+    <div style="float: left; width: 20%; height: 100%;">
+      <div>
+        <div>
+          <input type="url" id="url" width="50px" value="https://form.lljj.me/schema-generator.html#/index">
+
+          <input type="button" value="Fetch..." onclick="getSource();">
+        </div>
+
+        <input type="button" value="Publish..." onclick="showCode();">
+      </div>
+      <div id="widget">
+        <!-- 文本域 -->
+        <div class="item">
+          <!-- 文本域 -->
+          <div class="form-group">
+            <label class="control-label" :text="title" @click="one">文本域</label>
+            <div>
+              <textarea class="form-control" :value="default" :rows="rows" rows="2" :style.width="width"
+                style="resize: none; width: 100%;"></textarea>
+            </div>
+          </div>
+          <script>
+            this.schema = {
+              rows: {
+                type: "number",
+                default: "default",
+                description: "description",
+                examples: "行数",
+                title: "行数"
+              }
+            };
+            this.methods = {
+              one(sender, event) {
+                console.log("sender:", sender);
+                console.log("event:", event);
+                alert("aaaa");
+              },
+              two(sender, event) {
+                // 第二个事件处理器逻辑...
+              }
+            };
+          </script>
+        </div>
+        <!-- 文本域 -->
+        <div class="item">
+          <input type="button" value="load" @click="load">
+          <div :text="type">
+            line
+          </div>
+          <script>
+            this.schema = {
+              rows: {
+                type: "number",
+                default: "default",
+                description: "description",
+                examples: "行数",
+                title: "行数"
+              }
+            };
+            this.methods = {
+              load(sender, event) {
+                console.log("this", this);
+                console.log("sender", sender);
+                console.log("event", event);
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(document.getElementById('box'));
+                // 指定图表的配置项和数据
+                window.option = {
+                  title: {
+                    text: 'ECharts 入门示例'
+                  },
+                  tooltip: {},
+                  legend: {
+                    data: ['销量']
+                  },
+                  xAxis: {
+                    data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+                  },
+                  yAxis: {},
+                  series: [
+                    {
+                      name: '销量',
+                      type: sender.data.type,
+                      data: [5, 20, 36, 10, 10, 20]
+                    }
+                  ]
+                };
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+              }
+            };
+          </script>
+        </div>
+        <div class="item">
+          <!-- 输入框 -->
+          <div class="form-group">
+            <label :text="title">输入框</label>
+            <div>
+              <input type="email" class="form-control" :placeholder="placeholder" placeholder="Email">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="item">
+          <!-- 复选框 -->
+          <div class="form-group">
+            <input type="hidden" :value="url" />
+            <input type="hidden" :value="param" />
+            <input type="hidden" :value="method" />
+            <label :text="title">复选框</label>
+            <div>
+              <label class="checkbox-inline">
+                <input type="checkbox" value="option1"> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="checkbox" value="option2"> 2
+              </label>
+              <label class="checkbox-inline">
+                <input type="checkbox" value="option3"> 3
+              </label>
+            </div>
+            <script>
+              this.schema = {
+                url: {
+                  title: "URL:",
+                  description: "请输入URL",
+                }
+
+              }
+            </script>
+          </div>
+        </div>
+        <div class="item">
+          <!-- 单选框 -->
+          <div class="form-group">
+            <label class="control-label">单选框</label>
+            <div>
+              <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 1
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 2
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> 3
+              </label>
+            </div>
+          </div>
+        </div>
+        <!-- 下拉列表框 -->
+        <div class="item">
+          <!-- 下拉列表框 -->
+          <div class="form-group">
+            <label class="control-label">下拉列表</label>
+            <div>
+              <select class="form-control">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <!-- （一般信息）Info -->
+          <div class="form-group">
+            <label class="control-label">按钮</label>
+            <div>
+              <button type="button" class="btn btn-info">（一般信息）Info</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <!-- （成功）Success -->
+          <div class="form-group">
+            <label class="control-label">按钮</label>
+            <div>
+              <button type="button" class="btn btn-success">（成功）Success</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <!-- （危险）Danger-->
+          <div class="form-group">
+            <label class="control-label">按钮</label>
+            <div>
+              <button type="button" class="btn btn-danger" :text="examples">（危险）Danger</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <!-- 按钮组 -->
+          <div class="form-group">
+            <label class="control-label">按钮组</label>
+            <div>
+              <button type="button" class="btn btn-success  btn-sm">（成功）Success</button>
+              <button type="button" class="btn btn-danger  btn-sm">（危险）Danger</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="box" style="float: left; width: 60%; height: 500px;">
+      <el-button id="showCode">drop here</el-button>
+    </div>
+  
+  
+  </div>
+
   <div id="app" style="float: right; width: 20%; height: 500px;">
 
 
   </div>
 
 
-  <div style="float: left; width: 20%; height: 500px;">
-    <div>
-      <div>
-        <input type="url" id="url" width="50px" value="https://form.lljj.me/schema-generator.html#/index">
-
-        <input type="button" value="Fetch..." onclick="getSource();">
-      </div>
-
-      <input type="button" value="Publish..." onclick="showCode();">
-    </div>
-    <div id="widget">
-      <!-- 文本域 -->
-      <div class="item">
-        <!-- 文本域 -->
-        <div class="form-group">
-          <label class="control-label" :text="title" @click="one">文本域</label>
-          <div>
-            <textarea class="form-control" :value="default" :rows="rows" rows="2" :style.width="width"
-              style="resize: none; width: 100%;"></textarea>
-          </div>
-        </div>
-        <script>
-          this.schema = {
-            rows: {
-              type: "number",
-              default: "default",
-              description: "description",
-              examples: "行数",
-              title: "行数"
-            }
-          };
-          this.methods = {
-            one(sender, event) {
-              console.log("sender:", sender);
-              console.log("event:", event);
-              alert("aaaa");
-            },
-            two(sender, event) {
-              // 第二个事件处理器逻辑...
-            }
-          };
-        </script>
-      </div>
-      <div class="item">
-        <!-- 输入框 -->
-        <div class="form-group">
-          <label :text="title">输入框</label>
-          <div>
-            <input type="email" class="form-control" :placeholder="placeholder" placeholder="Email">
-          </div>
-        </div>
-
-      </div>
-
-      <div class="item">
-        <!-- 复选框 -->
-        <div class="form-group">
-          <input type="hidden" :value="url" />
-          <input type="hidden" :value="param" />
-          <input type="hidden" :value="method" />
-          <label :text="title">复选框</label>
-          <div>
-            <label class="checkbox-inline">
-              <input type="checkbox" value="option1"> 1
-            </label>
-            <label class="checkbox-inline">
-              <input type="checkbox" value="option2"> 2
-            </label>
-            <label class="checkbox-inline">
-              <input type="checkbox" value="option3"> 3
-            </label>
-          </div>
-          <script>
-            this.schema = {
-              url: {
-                title: "URL:",
-                description: "请输入URL",
-              }
-
-            }
-          </script>
-        </div>
-      </div>
-      <div class="item">
-        <!-- 单选框 -->
-        <div class="form-group">
-          <label class="control-label">单选框</label>
-          <div>
-            <label class="radio-inline">
-              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 1
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 2
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> 3
-            </label>
-          </div>
-        </div>
-      </div>
-      <!-- 下拉列表框 -->
-      <div class="item">
-        <!-- 下拉列表框 -->
-        <div class="form-group">
-          <label class="control-label">下拉列表</label>
-          <div>
-            <select class="form-control">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="item">
-        <!-- （一般信息）Info -->
-        <div class="form-group">
-          <label class="control-label">按钮</label>
-          <div>
-            <button type="button" class="btn btn-info">（一般信息）Info</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="item">
-        <!-- （成功）Success -->
-        <div class="form-group">
-          <label class="control-label">按钮</label>
-          <div>
-            <button type="button" class="btn btn-success">（成功）Success</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="item">
-        <!-- （危险）Danger-->
-        <div class="form-group">
-          <label class="control-label">按钮</label>
-          <div>
-            <button type="button" class="btn btn-danger" :text="examples">（危险）Danger</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="item">
-        <!-- 按钮组 -->
-        <div class="form-group">
-          <label class="control-label">按钮组</label>
-          <div>
-            <button type="button" class="btn btn-success  btn-sm">（成功）Success</button>
-            <button type="button" class="btn btn-danger  btn-sm">（危险）Danger</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div id="box" style="float: left; width: 60%; height: 500px;">
-    <el-button id="showCode">drop here</el-button>
-  </div>
-
 
 </body>
-
+<script src="echarts.js"></script>
 <script src="bundle.js"></script>
 <script>
-  var jsonForm = new JsonForm("#box", "#widget");
+  // var jsonForm = new JsonForm("#box", "#widget");
   function showCode() {
     console.log(document.querySelector("#box").innerHTML);
   }
@@ -249,10 +308,9 @@
           }
         });
       }).then(i => {
-        var jsonForm = new JsonForm("#box", "#widget");
+        jsonForm = new JsonForm("#box", "#widget");
       });
   }
-
 </script>
 
 </html>
